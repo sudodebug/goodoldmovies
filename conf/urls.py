@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from movies.views import movie_view, custom_handler404, custom_handler400, custom_handler403, custom_handler500
+from movies.views import movie_view, TestView, MainView, AboutView, custom_handler404, custom_handler400, custom_handler403, custom_handler500
+
 
 urlpatterns = [
+    path('', MainView.as_view()),
+    path('about/', AboutView.as_view()),
     path('admin/', admin.site.urls),
     path('movie/<int:movie_id>', movie_view),
 ]

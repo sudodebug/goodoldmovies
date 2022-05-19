@@ -21,6 +21,21 @@ def movie_view(request, movie_id):
     return HttpResponse(f'This is {movie_title}')
 
 
+class TestView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'movies/test.html', {})
+
+
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'movies/about.html', {})
+
+
+class MainView(View):
+    def get(self,request):
+        return render(request, 'movies/movieindex.html')
+
+
 def custom_handler400(request, exception):
     return HttpResponseBadRequest('Неверный запрос!')
 
