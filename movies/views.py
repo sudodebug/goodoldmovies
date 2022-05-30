@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.conf import settings
+from django.urls import reverse
 from django.views import View
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseServerError, HttpResponseRedirect
+
 
 movies = [
     {'title': 'Catchfire', 'year': 1990, },
@@ -32,7 +34,7 @@ class AboutView(View):
 
 
 class MainView(View):
-    def get(self,request):
+    def get(self, request):
         return render(request, 'movies/movieindex.html')
 
 
@@ -50,3 +52,15 @@ def custom_handler404(request, exception):
 
 def custom_handler500(request):
     return HttpResponseServerError('Ошибка сервера!')
+
+
+def myview(request, year, **kwargs):
+    year = int(year)
+    summary = kwargs.get('summary', False)
+
+    if year < 1900:
+        return HttpResponseRedirect(reverse('time-loop', args=[2000]))
+    elif year > 2000:
+        return HttpResponseRedirect(reverse('time-loop', args=[1900]))
+    else:
+        return render(request, 'movies/browser.html', {'year': year, 'summary': summary})

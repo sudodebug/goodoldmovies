@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>This is main page</h1><a href="/about">About company</a>
-</body>
+{% extends 'movies/base.html' %}
 
-</html>
+{% block page %}
+<h1>This is main page</h1><a href="/about">About company</a>
+
+{% endblock %}
+
+
+class="{% if request.path == link.link %}active{% endif %}"
